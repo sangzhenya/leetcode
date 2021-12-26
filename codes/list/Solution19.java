@@ -10,23 +10,26 @@ import util.ListNodeUtil;
  */
 public class Solution19 {
     public static void main(String[] args) {
-        ListNode listNode = ListNodeUtil.buildListNode(List.of(1, 2));
-        ListNodeUtil.printList(removeNthFromEnd(listNode, 2));
+        ListNode listNode = ListNodeUtil.buildListNode(List.of(1, 2, 3));
+        ListNodeUtil.printList(removeNthFromEnd(listNode, 3));
     }
 
     public static ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dummy = new ListNode();
-        dummy.next = head;
-        ListNode fast = dummy;
-        for (int i = 0; i <= n; i++) {
+        ListNode fast = head;
+        for (int i = 0; i < n; i++) {
             fast = fast.next;
         }
-        ListNode slow = dummy;
-        while (fast != null) {
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
             fast = fast.next;
             slow = slow.next;
         }
-        slow.next = slow.next.next;
-        return dummy.next;
+        if (fast == null) {
+            return slow.next;
+        }
+        if (slow != null && slow.next != null) {
+            slow.next = slow.next.next;
+        }
+        return head;
     }
 }
