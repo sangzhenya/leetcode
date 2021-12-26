@@ -15,17 +15,18 @@ public class Solution19 {
     }
 
     public static ListNode removeNthFromEnd(ListNode head, int n) {
+        assert head != null;
         ListNode fast = head;
         for (int i = 0; i < n; i++) {
             fast = fast.next;
         }
+        if (fast == null) {
+            return head.next;
+        }
         ListNode slow = head;
-        while (fast != null && fast.next != null) {
+        while (fast.next != null) {
             fast = fast.next;
             slow = slow.next;
-        }
-        if (fast == null) {
-            return slow.next;
         }
         if (slow != null && slow.next != null) {
             slow.next = slow.next.next;
